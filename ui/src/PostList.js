@@ -1,21 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
+import React from 'react'
+
+import useFetch from './useFetch'
 
 export default function PostList() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [posts, setPosts] = useState([])
-
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setIsLoading(true)
-      const { data } = await axios.get('/posts')
-
-      setPosts(data)
-      setIsLoading(false)
-    }
-
-    fetchPosts()
-  }, [])
+  const { data: posts, isLoading } = useFetch('/posts')
 
   if (isLoading) return <div>Loading...</div>
 
