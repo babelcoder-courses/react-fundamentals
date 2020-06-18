@@ -1,7 +1,7 @@
 import React from 'react'
 
-import PostList from './PostList'
+import NoteApp from './NoteApp'
 
 export default function App() {
-  return <PostList></PostList>
+  return <NoteApp></NoteApp>
 }
