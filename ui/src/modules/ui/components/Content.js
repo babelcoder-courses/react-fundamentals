@@ -1,7 +1,8 @@
 import React from 'react'
 import { Container, Toolbar, Snackbar, Button } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import Cart from 'modules/cart/components/Cart'
+
+import Routes from './Routes'
 
 const useStyles = makeStyles((theme) => ({
   content: {
@@ -16,7 +17,7 @@ export default function Content() {
     <main className={classes.content}>
       <Container maxWidth="lg">
         <Toolbar></Toolbar>
-        <Cart></Cart>
+        <Routes></Routes>
         <Snackbar
           open
           message="Hello"
