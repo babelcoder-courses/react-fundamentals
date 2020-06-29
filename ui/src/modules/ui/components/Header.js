@@ -8,7 +8,7 @@ import {
   Badge,
   IconButton,
 } from '@material-ui/core'
-import { Link as RouterLink } from 'react-router-dom'
+import { Link as RouterLink, useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 import { ShoppingCart } from '@material-ui/icons'
 
@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Header() {
   const classes = useStyles()
+  const history = useHistory()
+
+  const navigateToCart = () => history.push('/cart')
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -59,7 +62,7 @@ export default function Header() {
           label="Dark"
           labelPlacement="end"
         ></FormControlLabel>
-        <IconButton color="inherit">
+        <IconButton color="inherit" onClick={navigateToCart}>
           <Badge badgeContent={5} color="secondary">
             <ShoppingCart></ShoppingCart>
           </Badge>
