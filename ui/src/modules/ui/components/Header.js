@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   AppBar,
   Toolbar,
@@ -13,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { ShoppingCart } from '@material-ui/icons'
 
 import logo from 'assets/images/logo.png'
+import * as actions from '../actions'
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -33,8 +35,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
   const classes = useStyles()
   const history = useHistory()
+  const dispatch = useDispatch()
+  const darkMode = useSelector((state) => state.ui.darkMode)
 
   const navigateToCart = () => history.push('/cart')
+
+  const toggleDarkMode = () => dispatch(actions.toggleDarkMode())
 
   return (
     <AppBar position="fixed" className={classes.appBar}>
@@ -58,7 +64,13 @@ export default function Header() {
         </Link>
         <div className={classes.spacer}></div>
         <FormControlLabel
-          control={<Switch color="secondary" />}
+          control={
+            <Switch
+              color="secondary"
+              checked={darkMode}
+              onChange={toggleDarkMode}
+            />
+          }
           label="Dark"
           labelPlacement="end"
         ></FormControlLabel>
