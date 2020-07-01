@@ -1,4 +1,5 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { useForm } from 'react-hook-form'
 import { makeStyles } from '@material-ui/core/styles'
 import {
@@ -10,6 +11,8 @@ import {
   Button,
 } from '@material-ui/core'
 import * as yup from 'yup'
+
+import * as actions from '../actions'
 
 const useStyles = makeStyles((theme) => ({
   form: {
@@ -24,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Delivery() {
   const classes = useStyles()
+  const dispatch = useDispatch()
   const { register, handleSubmit, errors } = useForm({
     mode: 'onBlur',
     validationSchema: yup.object().shape({
@@ -34,7 +38,9 @@ export default function Delivery() {
   })
 
   const submit = (deliveryInfo) => {
-    console.log(deliveryInfo)
+    const action = actions.checkout(deliveryInfo)
+
+    dispatch(action)
   }
 
   return (

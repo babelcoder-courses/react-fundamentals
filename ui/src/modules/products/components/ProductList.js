@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { Typography, Grid, CircularProgress } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import axios from 'axios'
 import queryString from 'query-string'
 
+import * as actions from '../actions'
 import CategoryList from './CategoryList'
 import ProductItem from './ProductItem'
 
@@ -20,22 +21,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ProductList() {
   const classes = useStyles()
+  const dispatch = useDispatch()
+  const { isLoading, items: products } = useSelector((state) => state.products)
   const { search } = useLocation()
   const { category } = queryString.parse(search)
-  const [products, setProducts] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    const loadProducts = async () => {
-      setIsLoading(true)
-      const { data } = await axios.get(`/products${search}`)
+    const action = actions.loadProducts(search)
 
-      setProducts(data)
-      setIsLoading(false)
-    }
-
-    loadProducts()
-  }, [search])
+    dispatch(action)
+  }, [dispatch, search])
 
   return (
     <>
