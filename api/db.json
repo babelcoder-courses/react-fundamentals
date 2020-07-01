@@ -1,19 +1,5 @@
 {
-  "orders": [
-    {
-      "deliveryInfo": {
-        "name": "Babel Coder",
-        "email": "babelcoder@gmail.com",
-        "address": "Address"
-      },
-      "productIds": [
-        "1",
-        "2"
-      ],
-      "price": 2000,
-      "id": 1
-    }
-  ],
+  "orders": [],
   "products": [
     {
       "id": 1,
