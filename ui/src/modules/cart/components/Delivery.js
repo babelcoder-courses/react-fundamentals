@@ -1,5 +1,6 @@
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup';
 import { makeStyles } from '@material-ui/core/styles'
 import {
   TextField,
@@ -22,16 +23,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
+const schema = yup.object().shape({
+  name: yup.string().required(),
+  email: yup.string().email().required(),
+  address: yup.string().required(),
+})
+
 export default function Delivery() {
   const classes = useStyles()
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     mode: 'onBlur',
-    validationSchema: yup.object().shape({
-      name: yup.string().required(),
-      email: yup.string().email().required(),
-      address: yup.string().required(),
-    }),
+    resolver: yupResolver(schema),
   })
+  const nameField = register('name')
+  const emailField = register('email')
+  const addressField = register('address')
 
   const submit = (deliveryInfo) => {
     console.log(deliveryInfo)
@@ -45,34 +51,37 @@ export default function Delivery() {
             Delivery Information
           </Typography>
           <TextField
-            inputRef={register}
+            inputRef={nameField.ref}
+            name={nameField.name}
+            onChange={nameField.onChange}
             variant="outlined"
             label="Name"
             placeholder="Enter your fullname"
-            name="name"
             fullWidth
             helperText={errors.name?.message || ''}
             error={!!errors.name}
           />
           <TextField
-            inputRef={register}
+            inputRef={emailField.ref}
+            name={emailField.name}
+            onChange={emailField.onChange}
             type="email"
             variant="outlined"
             label="Email"
             placeholder="Enter your email"
-            name="email"
             fullWidth
             helperText={errors.email?.message || ''}
             error={!!errors.email}
           />
           <TextField
-            inputRef={register}
+            inputRef={addressField.ref}
+            name={addressField.name}
+            onChange={addressField.onChange}
             multiline
             rows={4}
             variant="outlined"
             label="Address"
             placeholder="Enter your address"
-            name="address"
             fullWidth
             helperText={errors.address?.message || ''}
             error={!!errors.address}
